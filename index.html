@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c1511"><meta name="description" content="RepFuel is a lightweight training and nutrition tracker: log food, lifts and daily goals. Runs entirely in your browser."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%235fe0a0%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%2306140d%27%3ER%3C/text%3E%3C/svg%3E"><title>RepFuel — Training & Nutrition</title>
+<link rel="stylesheet" href="css/styles.css"></head>
+<body><div class="app">
+<aside class="sidebar"><div class="brand"><div class="brand-icon">R</div><div><b>RepFuel</b><small>Training club</small></div></div>
+<div class="club"><i>●</i><div><strong>Iron House</strong><small>Training club</small></div></div>
+<div class="nav-label">Workspace</div><nav class="side-nav" id="side-nav"></nav>
+<div class="side-bottom"><div class="coach"><div class="av">JL</div><div><strong>Jordan Lee</strong><small>Coach account</small></div></div><div class="version">Prototype v0.2</div></div></aside>
+<main class="main"><header class="topbar"><button class="mobile-brand">REPFUEL</button><div class="crumb">Iron House / <b id="crumb">Overview</b></div><div class="top-actions"><button class="icon-btn dot" id="bell" aria-label="Notifications">🔔</button><div class="av">JL</div></div></header>
+<div class="content">
+<div class="welcome"><div><div class="eyebrow" id="today-label"></div><h1 id="page-title"></h1><p id="page-sub"></p></div><button class="btn" id="quick-add">＋ Log food</button></div>
+
+<section class="page" id="p-overview">
+<div class="toolbar"><div><strong>Your daily targets</strong><span>Personalize your nutrition goals</span></div><button class="btn ghost" id="edit-goals">⚙ Edit goals</button></div>
+<div class="stats" id="stats"></div>
+<div class="grid2"><div class="panel"><div class="ph"><div><h2>Today’s food</h2><p>Your daily fuel at a glance.</p></div><button class="link" data-go="nutrition">View log →</button></div><div class="list" id="ov-meals"></div></div>
+<div class="panel"><div class="ph"><div><h2>Recent training</h2><p>Your latest lifts.</p></div><button class="link" data-go="training">Full log →</button></div><div class="list" id="ov-lifts"></div></div></div>
+<div class="grid2"><div class="panel"><div class="ph"><div><h2>Today’s focus</h2><p id="focus-sub">Small wins add up.</p></div></div>
+<div class="focus"><div class="fi">↗</div><div><strong id="focus-t">Keep showing up</strong><p id="focus-p">Log your lifts and meals to build a picture of your progress.</p></div></div><button class="link" data-go="training">Open training log →</button></div>
+<div class="panel"><div class="ph"><div><h2>Quick note</h2><p>Save a reminder for yourself.</p></div></div><textarea id="note" placeholder="How are you feeling today? Anything to remember..."></textarea><div class="nf"><span id="note-st">Saved on this device</span><button class="btn ghost" id="save-note">Save note</button></div></div></div>
+</section>
+
+<section class="page" id="p-nutrition"><div class="grid2">
+<div class="panel"><div class="ph"><div><h2>Add food</h2><p>Search demo foods and your custom foods.</p></div></div>
+<form class="search" id="search-form"><input id="q" placeholder="Search food (e.g. oats, banana, paneer)" autocomplete="off"><button class="btn">Search</button></form>
+<div class="hint" id="hint"></div><div class="results" id="results"></div></div>
+<div class="panel"><div class="ph"><div><h2>Daily summary</h2><p id="sum-date"></p></div></div><div id="summary"></div></div></div>
+<div class="panel"><div class="ph"><div><h2>Food diary</h2><p>Everything you’ve logged today.</p></div><span class="pill" id="food-count">0 items</span></div><div class="list" id="diary"></div></div></section>
+
+<section class="page" id="p-training"><div class="grid2">
+<div class="panel"><div class="ph"><div><h2>Log a lift</h2><p>Record sets, reps, and load.</p></div></div>
+<form class="form" id="lift-form"><label>Exercise<input name="exercise" placeholder="e.g. Bench press" required></label><label>Date<input name="date" type="date" required></label>
+<label>Sets<input name="sets" type="number" min="1" value="3" required></label><label>Reps<input name="reps" type="number" min="1" value="8" required></label>
+<label>Weight<input name="weight" type="number" min="0" step="0.5" placeholder="60" required></label><label>Unit<select name="unit"><option>kg</option><option>lb</option></select></label>
+<label class="span2">Notes<input name="notes" placeholder="Optional notes"></label><button class="btn span2">Save lift</button></form></div>
+<div class="panel"><div class="ph"><div><h2>Training history</h2><p id="lift-sum">Your recent logged work.</p></div></div><div class="list" id="history"></div></div></div></section>
+
+<section class="page" id="p-calendar"><div class="cal-wrap"><div class="panel"><div class="ph"><div><h2>Goal calendar</h2><p>Mark each day you completed your goals.</p></div><span class="pill" id="streak"></span></div>
+<div class="cal-bar"><button class="arrow" id="prev" aria-label="Previous month">‹</button><h3 id="mtitle"></h3><button class="arrow" id="next" aria-label="Next month">›</button><button class="btn ghost" id="today">Today</button></div>
+<div class="cal" id="cal"></div><div class="legend"><span><i style="background:var(--green)"></i>Goal completed</span><span><i style="background:var(--blue)"></i>Activity logged</span></div></div>
+<div class="panel"><div class="ph"><div><h2 id="sel-title">Selected day</h2><p id="sel-cap"></p></div></div><div class="dstats" id="dstats"></div><button class="toggle" id="toggle">Mark this day complete</button><p class="note">Completion is your own check-in. Totals are shown for context against your saved targets.</p></div></div></section>
+
+<section class="page" id="p-foods"><div class="panel"><div class="ph"><div><h2>Food library</h2><p>Add and manage custom foods.</p></div><span class="badge">ADMIN</span></div>
+<form class="form" id="food-form"><label>Food name<input name="name" placeholder="e.g. Homemade chicken curry" required></label><label>Serving size (g)<input name="serving" type="number" value="100" min="1" required></label>
+<label>Calories<input name="cal" type="number" min="0" required></label><label>Protein (g)<input name="p" type="number" min="0" step="0.1" required></label>
+<label>Carbs (g)<input name="c" type="number" min="0" step="0.1" required></label><label>Fat (g)<input name="f" type="number" min="0" step="0.1" required></label>
+<button class="btn span2">＋ Add to food library</button></form>
+<div class="lib-head"><h3>Custom foods</h3><span class="pill" id="lib-count">0 foods</span></div><div class="list" id="custom-list"></div>
+<p class="note">Prototype data is stored in this browser on this device. Club-wide accounts need a backend and sign-in.</p></div></section>
+<footer>RepFuel · A small step, done consistently.</footer></div></main></div>
+<nav class="mobile-nav" id="m-nav"></nav>
+
+<div class="backdrop" id="goals-m"><form class="modal" id="goals-form" role="dialog" aria-modal="true" aria-label="Nutrition goals"><button type="button" class="modal-x" data-close aria-label="Close">×</button><div class="eyebrow">YOUR DAILY TARGETS</div><h2>Set your nutrition goals</h2><p>Saved on this device. Change them any time.</p>
+<div class="goal-in"><label>Calories<input name="cal" type="number" min="1" max="10000" required></label><label>Protein (g)<input name="p" type="number" min="1" max="1000" required></label><label>Carbs (g)<input name="c" type="number" min="1" max="1000" required></label><label>Fat (g)<input name="f" type="number" min="1" max="1000" required></label></div><button class="btn">Save my goals</button></form></div>
+<div class="backdrop" id="amt-m"><div class="modal" role="dialog" aria-modal="true" aria-label="Add food"><button class="modal-x" data-close aria-label="Close">×</button><div class="eyebrow">ADD TO FOOD DIARY</div><h2 id="m-name">Food</h2><p id="m-meta"></p>
+<label>Amount eaten (g)<input id="amt" type="number" min="1" value="100"></label><div class="prev" id="m-prev"></div><button class="btn" id="confirm">Add to today</button></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/app.js"></script></body></html>
